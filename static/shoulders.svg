@@ -1,0 +1,14 @@
+<svg version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 201 288" width="201" height="288">
+  <title>Shoulders</title>
+  <defs>
+    <filter id="MuscleColor">
+      <feColorMatrix id="colorMatrix" type="matrix" values="0 0 0 0 0  0 0 0 0 1  0 0 0 0 0  0 0 0 1 0" />
+    </filter>
+  </defs>
+
+  <use id="shoulders" href="#img1" x="68" y="69" filter="url(#MuscleColor)"/>
+  <defs>
+
+    <image id="img1" width="63" height="15" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAD8AAAAPCAMAAABk++dAAAAAAXNSR0IB2cksfwAAAD9QTFRFAAAA/wAA/gME+g4Q/wID/A8U+Q0P/QYH/gsO+w4U+w8S/gID/AoN/QkI/wUL/AYI/gMD+hMV/QYE+BQb/QcIZ6jkLgAAABV0Uk5TAP//yf+by//lj67/3f78+f9r/yb+B2OP1AAAAKBJREFUeJydkesKgzAMhRN0ouLGFN//DcUbbsjErk1aqz+EpimUEPKdHBIEH4g7hASCOuVHRafqDrlEslNjuln+sVk8kM9+wEC2GipfZfjRa1yjNy/jrQDqL/9ypfgE8l6gRBpfLZLxZwP6Sd07gWo2J7dLgOckwFngNWr+PUA9CKeTQN27vUtOd3WgHC/HCWs6jMYB2o7vH0eTBcX3i48/GGMyHjjfvPgAAAAASUVORK5CYII=" />
+  </defs>
+</svg>

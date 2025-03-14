@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Edit Account Info</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+
+
+    <header>
+    <h1>Edit Account info</h1>
+                <nav>
+                <ul>
+                    <li><a href="{{ url_for('home') }}">Home</a></li>
+
+                    {% if 'username' in session %}
+                    <li><a href="{{ url_for('createworkout') }}">Create Workout</a></li>
+                    <li><a href="{{ url_for('weight_log') }}">Weight Tracker</a></li>
+                    <li><a href="{{ url_for('myworkouts') }}">My Workouts</a></li>
+                    <li><a href="{{ url_for('weight_log') }}">Weight Tracker</a></li>
+                    <li id="gym-counter">
+                        Gym days this week: <span id="gym-days-counter">0</span>
+                    </li>
+                    <li><a href="/account">My Acount Info</a></li>
+                    <li><a href="{{ url_for('logout') }}">Logout</a></li>
+                    {% else %}
+                    <li><a href="{{ url_for('login') }}">Login</a></li>
+                    <li><a href="{{ url_for('signup') }}">Sign Up</a></li>
+                    {% endif %}
+                </ul>
+            </nav>
+    </header>
+  <form action="/api/update-user-info" method="POST">
+      <label>Email:
+      <input type="email" name="email" value="{{ currentemail }}">
+    </label><br>
+      <label>Edit Password (leave blank if not changing password):
+      <input type="password" name="password" value="">
+    </label><br>
+    <label>Height:
+      <input type="number" name="height" value="{{ currentheight }}">
+    </label><br>
+    <label>Weight:
+      <input type="number" name="weight" value="{{ currentweight }}">
+    </label><br>
+    <label>Age:
+      <input type="number" name="age" value="{{ age }}">
+    </label><br>
+    <label>Sex:
+      <select name="sex">
+        <option value="0" {% if sex == 0 or sex == "0" %}selected{% endif %}>Male</option>
+        <option value="1" {% if sex == 1 or sex == "1" %}selected{% endif %}>Female</option>
+      </select>
+    </label><br>
+    <label>Bodyfat:
+      <input type="number" name="bodyfat" value="{{ bodyfat }}">
+    </label><br>
+    <label>Level:
+      <select name="level">
+        <option value="0" {% if currentlevel == 0 or currentlevel == "0" %}selected{% endif %}>Beginner</option>
+        <option value="1" {% if currentlevel == 1 or currentlevel == "1" %}selected{% endif %}>Intermediate</option>
+        <option value="2" {% if currentlevel == 2 or currentlevel == "2" %}selected{% endif %}>Advanced</option>
+      </select>
+    </label><br>
+    <button type="submit">Update</button>
+  </form>
+</body>
+</html>
+
+

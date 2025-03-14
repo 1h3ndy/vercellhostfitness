@@ -1,0 +1,14 @@
+<svg version="1.2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 201 288" width="201" height="288">
+	<title>modify</title>
+	<defs>
+		<image  width="24" height="26" id="img1" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAaBAMAAABfkYHAAAAAAXNSR0IB2cksfwAAABVQTFRFAAAA/wAA+RIS+Bsb/QcH/A0N+Bwcd5tUeQAAAAd0Uk5TAP+LJv/eJRjoOM4AAACUSURBVHicVZDNDcIwDIWfU7jRUk/AKIxQVmAz2KBI7BWQOCKM/wSJD7Y/W3lPDgE0o4IhD5D1DkpkBbXsLZMttFg+JAyTZjGQ19tlhFhfRzCIK8pH29MKJpuEdC0pHTnVNqOr2Sh9kLDdNdBtXAC9KZro7wkfv0cCjvexgdv8h+XagDzjeLf7gasaLBczPa/qo3+ILxZ3NzSnObHAAAAAAElFTkSuQmCC"/>
+	</defs>
+	<defs>
+    <filter id="MuscleColor">
+      <feColorMatrix id="colorMatrix" type="matrix" values="0 0 0 0 0  0 0 0 0 1  0 0 0 0 0  0 0 0 1 0" />
+    </filter>
+    </defs>
+  	<use id="abs" href="#img1" x="88" y="94" filter="url(#MuscleColor)"/>
+
+
+</svg>

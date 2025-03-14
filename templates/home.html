@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>YTP</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+  <style>
+
+
+    #muscleContainer {
+      position: relative;
+      width: 700px;
+      height: 500px; /
+      margin: 0 auto;
+    }
+
+    #muscleContainer img,
+    #muscleContainer object {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>YTP</h1>
+    <nav>
+      <ul>
+        <li><a href="{{ url_for('home') }}">Home</a></li>
+        {% if 'username' in session %}
+          <li><a href="/create_workout">Create Workout</a></li>
+          <li><a href="/my_workouts">My Workouts</a></li>
+          <li><a href="{{ url_for('weight_log') }}">Weight Tracker</a></li>
+            <li id="gym-counter">
+                Gym days this week: <span id="gym-days-counter">0</span>
+          </li>
+          <li><a href="/account">My Acount Info</a></li>
+          <li><a href="{{ url_for('logout') }}">Logout</a></li>
+
+        {% else %}
+          <li><a href="{{ url_for('login') }}">Login</a></li>
+          <li><a href="{{ url_for('weight_log') }}">Weight Tracker</a></li>
+          <li><a href="{{ url_for('signup') }}">Sign Up</a></li>
+        {% endif %}
+      </ul>
+    </nav>
+  </header>
+  <main>
+    <section class="userbody">
+      <div id="muscleContainer">
+
+        <img src="{{ url_for('static', filename='background.svg') }}" alt="Body Background should be here" id="imagebodybackgroundbox">
+
+        <object id="shouldersOverlay" type="image/svg+xml" data="{{ url_for('static', filename='shoulders.svg') }}"></object>
+        <object id="chestOverlay" type="image/svg+xml" data="{{ url_for('static', filename='chest.svg') }}"></object>
+        <object id="bicepsOverlay" type="image/svg+xml" data="{{ url_for('static', filename='biceps.svg') }}"></object>
+        <object id="tricepsOverlay" type="image/svg+xml" data="{{ url_for('static', filename='triceps.svg') }}"></object>
+        <object id="forearmsOverlay" type="image/svg+xml" data="{{ url_for('static', filename='forearms.svg') }}"></object>
+        <object id="absOverlay" type="image/svg+xml" data="{{ url_for('static', filename='abs.svg') }}"></object>
+        <object id="quadsOverlay" type="image/svg+xml" data="{{ url_for('static', filename='quads.svg') }}"></object>
+        <object id="calfsOverlay" type="image/svg+xml" data="{{ url_for('static', filename='calfs.svg') }}"></object>
+        <object id="latsOverlay" type="image/svg+xml" data="{{ url_for('static', filename='lats.svg') }}"></object>
+           <a href="{{ url_for('accountedit') }}" id="accountButton">Account</a>
+      </div>
+    </section>
+    <section class="features">
+      <h2>KEY:</h2>
+      <div class="feature-item">
+        <h3>Muscle usage graph</h3>
+        <p>this graph shows how much you have worked out your muscles this week.</p>
+      </div>
+      <div class="feature-item">
+        <h3>Shading based on usage</h3>
+        <p>The brighter red the muscle on the graph, the harder you have trained it, aim to make it intense red for maximum muscle growth.</p>
+      </div>
+    </section>
+  </main>
+  <script>
+    //  color based  percentage
+    const getColor = (percentage) => {
+        console.log("percentage is : "+percentage)
+
+      if (percentage >= 100) {
+        return "0 0 0 0 1.00  0 0 0 0 0.843  0 0 0 0 0.00  0 0 0 1 0";
+      } else if (percentage >= 90) {
+        return "0 0 0 0 1.00  0 0 0 0 0.00  0 0 0 0 0.00  0 0 0 1 0";
+      } else if (percentage >= 80) {
+        return "0 0 0 0 0.90  0 0 0 0 0.00  0 0 0 0 0.00  0 0 0 1 0";
+      } else if (percentage >= 70) {
+        return "0 0 0 0 0.80  0 0 0 0 0.00  0 0 0 0 0.00  0 0 0 1 0";
+      } else if (percentage >= 60) {
+        return "0 0 0 0 0.70  0 0 0 0 0.00  0 0 0 0 0.00  0 0 0 1 0";
+      } else if (percentage >= 50) {
+        return "0 0 0 0 0.60  0 0 0 0 0.00  0 0 0 0 0.00  0 0 0 1 0";
+      } else if (percentage >= 40) {
+        return "0 0 0 0 0.50  0 0 0 0 0.00  0 0 0 0 0.00  0 0 0 1 0";
+      } else if (percentage >= 30) {
+        return "0 0 0 0 0.40  0 0 0 0 0.00  0 0 0 0 0.00  0 0 0 1 0";
+      } else if (percentage >= 20) {
+        return "0 0 0 0 0.30  0 0 0 0 0.00  0 0 0 0 0.00  0 0 0 1 0";
+      } else if (percentage >= 10) {
+        return "0 0 0 0 0.20  0 0 0 0 0.00  0 0 0 0 0.00  0 0 0 1 0";
+      } else {
+        return "0 0 0 0 0.04  0 0 0 0 0.00  0 0 0 0 0.00  0 0 0 1 0";
+      }
+    };
+
+
+
+
+    /**
+
+
+     * @param {string} objectelementid :the id
+     * @param {string} color - : matrix values now
+
+     */
+    function updateOverlayFilterColor(objectelementid, color) {
+      const overlay = document.getElementById(objectelementid);
+      overlay.addEventListener('load', function() {
+        const svgdocument = overlay.contentDocument;
+        const matrixE = svgdocument.getElementById("colorMatrix");
+        // this is the id of the feColorMatrix element inside the svg file
+
+        matrixE.setAttribute("values", color);
+        console.log(matrixE.getAttribute('values'))
+      });
+    }
+
+    // get muscle usage data from the Flask backend.
+    fetch('/muscleusage', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' }
+    })
+    .then(response => response.json())
+    .then(data => {
+      if (data.error) {
+        console.error("Error fetching muscle usage:", data.error);
+        return;
+      }
+      console.log("Muscle usage data:", data);
+      updateOverlayFilterColor('shouldersOverlay', getColor(data.Shoulders));
+      updateOverlayFilterColor('chestOverlay', getColor(data.Chest));
+      console.log(getColor(data.Chest))
+      updateOverlayFilterColor('bicepsOverlay', getColor(data.Biceps));
+      updateOverlayFilterColor('tricepsOverlay', getColor(data.Triceps));
+      updateOverlayFilterColor('forearmsOverlay', getColor(data.Forearms));
+      updateOverlayFilterColor('absOverlay', getColor(data.abs));
+      updateOverlayFilterColor('quadsOverlay', getColor(data.Quads));
+      updateOverlayFilterColor('calfsOverlay', getColor(data.Calfs));
+      updateOverlayFilterColor('latsOverlay', getColor(data.Back));
+    })
+    .catch(error => console.log("Error:", error));
+  </script>
+    <script src="{{ url_for('static', filename='js/counter.js') }}"></script>
+</body>
+</html>
